@@ -1,0 +1,39 @@
+.currency-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.currency-selector label {
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.currency-selector select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--white);
+  min-width: 200px;
+  cursor: pointer;
+}
+
+.currency-selector select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+.currency-selector select:disabled {
+  background-color: var(--hover-color);
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .currency-selector select {
+    min-width: unset;
+    width: 100%;
+  }
+}
