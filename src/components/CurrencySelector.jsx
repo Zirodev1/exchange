@@ -23,6 +23,7 @@ const CurrencySelector = ({ selectedCurrency, onSelectCurrency, label }) => {
   }, []);
 
   const handleChange = (e) => {
+    e.preventDefault();
     onSelectCurrency(e.target.value);
   };
 

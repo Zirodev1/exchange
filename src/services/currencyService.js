@@ -1,4 +1,4 @@
-const API_URL = `https://v6.exchangerate-api.com/v6/${import.meta.env.EXCHANGERATE_API}`;
+const API_URL = `https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_EXCHANGERATE_API}`;
 
 // import.meta.env.VITE_API_URL
 
