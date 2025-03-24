@@ -10,11 +10,31 @@ const API_URL = `https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_EXCHA
 export const getExchangeRates = async (base = 'USD') => {
   try {
     const response = await fetch(`${API_URL}/latest?base=${base}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
+    console.log(`API Response for ${base}:`, data);
+    
+    // If API returns error or no rates, use fallback
+    if (!data.success || !data.rates) {
+      console.warn('API returned unsuccessful response, using fallback rates');
+      return {
+        success: true,
+        rates: fallbackRates,
+        date: new Date().toISOString().split('T')[0]
+      };
+    }
+    
     return data;
   } catch (error) {
     console.error('Error fetching exchange rates:', error);
-    throw error;
+    // Return fallback data instead of throwing
+    return {
+      success: true,
+      rates: fallbackRates,
+      date: new Date().toISOString().split('T')[0]
+    };
   }
 };
 

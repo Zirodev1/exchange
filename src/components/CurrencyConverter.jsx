@@ -3,9 +3,14 @@ import CurrencySelector from './CurrencySelector';
 import { getExchangeRates, fallbackRates } from '../services/currencyService';
 import './CurrencyConverter.css';
 
-const CurrencyConverter = () => {
-  const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('EUR');
+const CurrencyConverter = ({ 
+  onFromCurrencyChange, 
+  onToCurrencyChange, 
+  initialFromCurrency = 'USD', 
+  initialToCurrency = 'EUR' 
+}) => {
+  const [fromCurrency, setFromCurrency] = useState(initialFromCurrency);
+  const [toCurrency, setToCurrency] = useState(initialToCurrency);
   const [amount, setAmount] = useState(1);
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -59,15 +64,27 @@ const CurrencyConverter = () => {
 
   const handleFromCurrencyChange = (currency) => {
     setFromCurrency(currency);
+    if (onFromCurrencyChange) {
+      onFromCurrencyChange(currency);
+    }
   };
 
   const handleToCurrencyChange = (currency) => {
     setToCurrency(currency);
+    if (onToCurrencyChange) {
+      onToCurrencyChange(currency);
+    }
   };
 
   const handleSwapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
+    if (onFromCurrencyChange) {
+      onFromCurrencyChange(toCurrency);
+    }
+    if (onToCurrencyChange) {
+      onToCurrencyChange(fromCurrency);
+    }
   };
 
   const handleConvertedAmountChange = (e) => {
